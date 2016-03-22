@@ -1,8 +1,8 @@
 import webapp2
 import logging
-
 from dummy import Dummy
 from mapreduce import control
+from google.appengine.api import namespace_manager
 
 # This handler populates your Datastore with Dummy objects. You access it by going to:
 # http://yourapp.appspot.com/populate_db
@@ -18,6 +18,7 @@ class PopulateHandler(webapp2.RequestHandler):
 			count =  int(self.request.get('count'))
 
 		for i in range(0, count):
+			namespace_manager.set_namespace(str(i))
 			d = Dummy()
 			d.put()
 
